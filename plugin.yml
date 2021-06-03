@@ -1,0 +1,7 @@
+name: FactionMasterExemple
+author: ShockedPlot7560
+version: 1.0
+api: 3.17.7
+main: ShockedPlot7560\FactionMasterExemple\Main
+softdepend: [FactionMaster]
+description: "Example of extension for FactionMaster"
