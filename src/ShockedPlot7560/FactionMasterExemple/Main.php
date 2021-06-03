@@ -64,7 +64,7 @@ class Main extends PluginBase implements Extension{
          * Use the PermissionManager to register new permissions 
          * that will be proposed to the players in the appropriate menu
          */
-        PermissionManager::registerPermission("PERMISSION_EXEMPLE", "PERMISSION_EXEMPLE", 40);
+        PermissionManager::registerPermission("PERMISSION_EXEMPLE", function(string $playerName) { return "Using the Exemple button"; }, 40);
         /**
          * To modify an existing menu, get its instance and add a function 
          * that will be called when creating the menu for the player.
