@@ -34,6 +34,7 @@ namespace ShockedPlot7560\FactionMasterExemple;
 
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
 use ShockedPlot7560\FactionMaster\API\Extension;
 use ShockedPlot7560\FactionMaster\API\PermissionManager;
 use ShockedPlot7560\FactionMaster\Button\Button;
@@ -46,6 +47,17 @@ use ShockedPlot7560\FactionMaster\Utils\Utils;
  * The main class must implement the Extension interface.
  */
 class Main extends PluginBase implements Extension{
+
+    private $LangConfig = [];
+
+    public function onLoad()
+    {
+        @mkdir($this->getDataFolder());
+        $this->saveResource('fr_FR.yml');
+        $this->LangConfig = [
+            "fr_FR" => new Config($this->getDataFolder() . "fr_FR.yml", Config::YAML)
+        ];
+    }
 
     /**
      * Function that will be called when loading the extension
@@ -81,6 +93,11 @@ class Main extends PluginBase implements Extension{
                 }
             ), 0);
         });
+    }
+
+    public function getLangConfig(): array
+    {
+        return $this->LangConfig;
     }
 
 }

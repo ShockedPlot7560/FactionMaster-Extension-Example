@@ -38,6 +38,7 @@ use ShockedPlot7560\FactionMaster\Button\ButtonCollection;
 use ShockedPlot7560\FactionMaster\Button\ButtonFactory;
 use ShockedPlot7560\FactionMaster\Database\Entity\UserEntity;
 use ShockedPlot7560\FactionMaster\Route\Route;
+use ShockedPlot7560\FactionMaster\Utils\Utils;
 
 class ExemplePanel implements Route {
 
@@ -77,8 +78,8 @@ class ExemplePanel implements Route {
         // To create our buttons, we call the built-in function of the button 
         // collection which will generate the buttons according to the player's permissions
         $menu = $this->Collection->generateButtons($menu, $this->UserEntity->name);
-        $menu->setTitle("Exemple Panel");
-        $menu->setContent($message);
+        $menu->setTitle(Utils::getText($this->UserEntity->name, "BUTTON_EXEMPLE"));
+        $menu->setContent($message . "\n \n" . Utils::getText($this->UserEntity->name, "EXEMPLE_PANEL_TEXT", ['playerName' => $this->UserEntity->name]));
         return $menu;
     }
 
