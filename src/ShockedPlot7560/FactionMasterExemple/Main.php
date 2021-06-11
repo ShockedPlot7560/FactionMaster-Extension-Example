@@ -35,11 +35,12 @@ namespace ShockedPlot7560\FactionMasterExemple;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use ShockedPlot7560\FactionMaster\API\Extension;
-use ShockedPlot7560\FactionMaster\API\PermissionManager;
 use ShockedPlot7560\FactionMaster\Button\Button;
 use ShockedPlot7560\FactionMaster\Button\ButtonFactory;
 use ShockedPlot7560\FactionMaster\Button\Collection\MainCollectionFac;
+use ShockedPlot7560\FactionMaster\Extension\Extension;
+use ShockedPlot7560\FactionMaster\Main as FactionMasterMain;
+use ShockedPlot7560\FactionMaster\Permission\Permission;
 use ShockedPlot7560\FactionMaster\Router\RouterFactory;
 use ShockedPlot7560\FactionMaster\Utils\Utils;
 
@@ -48,10 +49,15 @@ use ShockedPlot7560\FactionMaster\Utils\Utils;
  */
 class Main extends PluginBase implements Extension{
 
+    const PERMISSION_EXEMPLE = "PERMISSION_EXEMPLE";
+    const PERMISSION_EXEMPLE_ID = 10;
+
     private $LangConfig = [];
 
     public function onLoad()
     {
+        FactionMasterMain::getInstance()->getExtensionManager()->registerExtension($this);
+
         @mkdir($this->getDataFolder());
         $this->saveResource('fr_FR.yml');
         $this->LangConfig = [
@@ -76,7 +82,15 @@ class Main extends PluginBase implements Extension{
          * Use the PermissionManager to register new permissions 
          * that will be proposed to the players in the appropriate menu
          */
-        PermissionManager::registerPermission("PERMISSION_EXEMPLE", function(string $playerName) { return "Using the Exemple button"; }, 40);
+        $PermissionManager = FactionMasterMain::getInstance()->getPermissionManager();
+        $PermissionManager->registerPermission(new Permission(
+            self::PERMISSION_EXEMPLE,
+            function(string $playerName) { 
+                return "Using the Exemple button"; 
+            },
+            self::PERMISSION_EXEMPLE_ID
+        ), true);
+
         /**
          * To modify an existing menu, get its instance and add a function 
          * that will be called when creating the menu for the player.
@@ -100,4 +114,7 @@ class Main extends PluginBase implements Extension{
         return $this->LangConfig;
     }
 
+    public function getExtensionName() : string {
+        return 'factionExample';
+    }
 }
