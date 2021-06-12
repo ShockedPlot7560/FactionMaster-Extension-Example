@@ -36,12 +36,12 @@ use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use ShockedPlot7560\FactionMaster\Button\Button;
-use ShockedPlot7560\FactionMaster\Button\ButtonFactory;
+use ShockedPlot7560\FactionMaster\Button\Collection\CollectionFactory;
 use ShockedPlot7560\FactionMaster\Button\Collection\MainCollectionFac;
 use ShockedPlot7560\FactionMaster\Extension\Extension;
 use ShockedPlot7560\FactionMaster\Main as FactionMasterMain;
 use ShockedPlot7560\FactionMaster\Permission\Permission;
-use ShockedPlot7560\FactionMaster\Router\RouterFactory;
+use ShockedPlot7560\FactionMaster\Route\RouterFactory;
 use ShockedPlot7560\FactionMaster\Utils\Utils;
 
 /**
@@ -77,7 +77,7 @@ class Main extends PluginBase implements Extension{
         /**
          * Use the ButtonFactory to register new button collections
          */
-        ButtonFactory::register(new ExempleCollection());
+        CollectionFactory::register(new ExempleCollection());
         /**
          * Use the PermissionManager to register new permissions 
          * that will be proposed to the players in the appropriate menu
@@ -95,7 +95,7 @@ class Main extends PluginBase implements Extension{
          * To modify an existing menu, get its instance and add a function 
          * that will be called when creating the menu for the player.
          */
-        $MainCollectionFac = ButtonFactory::get(MainCollectionFac::SLUG);
+        $MainCollectionFac = CollectionFactory::get(MainCollectionFac::SLUG);
         $MainCollectionFac->registerCallable("FactionMasterBank", function() use ($MainCollectionFac) {
             $MainCollectionFac->register(new Button(
                 "exempleButton", //the button slug

@@ -34,14 +34,12 @@ namespace ShockedPlot7560\FactionMasterExemple;
 
 use pocketmine\Player;
 use ShockedPlot7560\FactionMaster\Button\Button;
-use ShockedPlot7560\FactionMaster\Button\ButtonCollection;
-use ShockedPlot7560\FactionMaster\Database\Entity\UserEntity;
+use ShockedPlot7560\FactionMaster\Button\Collection\Collection;
 use ShockedPlot7560\FactionMaster\Route\MainPanel;
-use ShockedPlot7560\FactionMaster\Router\RouterFactory;
-use ShockedPlot7560\FactionMaster\Utils\Ids;
+use ShockedPlot7560\FactionMaster\Route\RouterFactory;
 use ShockedPlot7560\FactionMaster\Utils\Utils;
 
-class ExempleCollection extends ButtonCollection {
+class ExempleCollection extends Collection {
 
     const SLUG = "exempleCollection";
 
@@ -66,17 +64,5 @@ class ExempleCollection extends ButtonCollection {
                 ]
             ));
         });
-    }
-
-    /**
-     * Function that will generate the list of all possible buttons
-     * No restrictions on this function, you can give as many arguments as you want
-     */
-    public function init(Player $Player, UserEntity $User) : self {
-        $this->ButtonsList = [];
-        foreach ($this->processFunction as $Callable) {
-            call_user_func($Callable, $Player, $User);
-        }
-        return $this;
     }
 }

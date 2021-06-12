@@ -35,7 +35,7 @@ namespace ShockedPlot7560\FactionMasterExemple;
 use jojoe77777\FormAPI\SimpleForm;
 use pocketmine\Player;
 use ShockedPlot7560\FactionMaster\Button\ButtonCollection;
-use ShockedPlot7560\FactionMaster\Button\ButtonFactory;
+use ShockedPlot7560\FactionMaster\Button\Collection\CollectionFactory;
 use ShockedPlot7560\FactionMaster\Database\Entity\UserEntity;
 use ShockedPlot7560\FactionMaster\Route\Route;
 use ShockedPlot7560\FactionMaster\Utils\Utils;
@@ -60,7 +60,8 @@ class ExemplePanel implements Route {
     public function __invoke(Player $Player, UserEntity $User, array $UserPermissions, ?array $params = null){
         $this->UserEntity = $User;
         // Create a new instance of the button collection : ExampleCollection
-        $this->Collection = ButtonFactory::get(ExempleCollection::SLUG)->init($Player, $User);
+        // init() function need by default, the $Player and $User argument, next you will can put what you want
+        $this->Collection = CollectionFactory::get(ExempleCollection::SLUG)->init($Player, $User);
         $menu = $this->exempleMenu($params[0]);
         $Player->sendForm($menu);
     }
